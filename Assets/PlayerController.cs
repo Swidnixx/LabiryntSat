@@ -4,11 +4,21 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed = 1;
+    //Settings
+    public float moveSpeed = 1;
+    public float rotSpeed = 100;
+
+    //Dependencies
+    public Transform cam;
     CharacterController controller;
+
+    //Inner settings
+    float camRotX;
 
     private void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         controller = GetComponent<CharacterController>();
     }
 
@@ -21,7 +31,18 @@ public class PlayerController : MonoBehaviour
         float mouseY = Input.GetAxis("Mouse Y");
 
         //Movement
-        Vector3 move = new Vector3(inputX, 0, inputY);
-        controller.Move(move * Time.deltaTime * speed);
+        Vector3 move = transform.right * inputX + transform.forward * inputY;
+        controller.Move(move * Time.deltaTime * moveSpeed);
+
+        //Rotation
+        transform.Rotate(0, mouseX * Time.deltaTime * rotSpeed, 0);
+
+        //Camera Rotation
+        camRotX -= mouseY * Time.deltaTime * rotSpeed;
+        camRotX = Mathf.Clamp(camRotX, -60, 60);
+        cam.localRotation = Quaternion.Euler(camRotX, 0, 0);
+
+        //Gravity
+        controller.Move(Physics.gravity * Time.deltaTime);
     }
 }
