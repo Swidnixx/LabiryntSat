@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
 
         if(didHit)
         {
-            Debug.Log("Pod³o¿e: " + hit.collider.tag);
+            //Debug.Log("Pod³o¿e: " + hit.collider.tag);
             switch (hit.collider.tag)
             {
                 case "Fast":
