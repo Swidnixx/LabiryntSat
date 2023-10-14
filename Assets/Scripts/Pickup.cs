@@ -6,10 +6,9 @@ public abstract class Pickup : MonoBehaviour
 {
     public int speed = 100;
 
-    void Pick()
+    protected virtual void Pick()
     {
         Destroy(gameObject);
-        Debug.Log("Podniesiono pickup");
     }
 
     private void Update()
