@@ -17,6 +17,15 @@ public class PortalTeleport : MonoBehaviour
         }
     }
 
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            player = other.transform;
+            teleporting = false;
+        }
+    }
+
     private void FixedUpdate()
     {
         if (teleporting)
@@ -30,6 +39,11 @@ public class PortalTeleport : MonoBehaviour
             {
                 player.position = otherPortalTeleport.position;
                 teleporting = false;
+
+                //Rotation aligment
+                Vector3 playerForward = transform.parent.InverseTransformDirection(player.forward);
+                playerForward = otherPortalTeleport.parent.TransformDirection(playerForward);
+                player.forward = playerForward;
             }
         }
     }
