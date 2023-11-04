@@ -37,13 +37,16 @@ public class PortalTeleport : MonoBehaviour
 
             if(dot < 0)
             {
-                player.position = otherPortalTeleport.position;
+                portalToPlayer = transform.parent.InverseTransformDirection(portalToPlayer);
+                portalToPlayer = otherPortalTeleport.parent.TransformDirection(portalToPlayer);
+                player.position = otherPortalTeleport.position + portalToPlayer;
                 teleporting = false;
 
                 //Rotation aligment
                 Vector3 playerForward = transform.parent.InverseTransformDirection(player.forward);
                 playerForward = otherPortalTeleport.parent.TransformDirection(playerForward);
                 player.forward = playerForward;
+
             }
         }
     }

@@ -23,6 +23,6 @@ public class Portal : MonoBehaviour
             linkedPortal.transform.worldToLocalMatrix *
             playerCam.transform.localToWorldMatrix;
 
-        myCamera.transform.SetPositionAndRotation( m.GetPosition(), m.rotation);
+        myCamera.transform.SetPositionAndRotation( m.GetColumn(3), m.rotation);
     }
 }
