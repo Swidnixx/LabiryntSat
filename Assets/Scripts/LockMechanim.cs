@@ -4,27 +4,41 @@ using UnityEngine;
 
 public class LockMechanim : MonoBehaviour
 {
+    public KeyColor keyColor;
     public DoorMechanim[] doorsToOpen;
     bool playerInRange;
+    bool alreadyOpen;
 
     private void Update()
     {
-        if (playerInRange)
+        if (alreadyOpen) return;
+
+        if (playerInRange && Input.GetKeyDown(KeyCode.E))
         {
-            foreach( var d in doorsToOpen )
+            if (GameManager.Instance.CheckKey(keyColor))
             {
-                d.isOpen = true;
+                alreadyOpen = true;
+                foreach (var d in doorsToOpen)
+                {
+                    d.isOpen = true;
+                } 
             }
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        playerInRange = true;
+        if (other.CompareTag("Player"))
+        {
+            playerInRange = true; 
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        playerInRange = false;
+        if (other.CompareTag("Player"))
+        {
+            playerInRange = false;
+        }
     }
 }

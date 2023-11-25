@@ -102,4 +102,35 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
+
+    //Interactions
+    public bool CheckKey(KeyColor keyColor)
+    {
+        switch (keyColor)
+        {
+            case KeyColor.Gold:
+                if(goldKeys > 0)
+                {
+                    goldKeys--;
+                    return true;
+                }
+                break;
+            case KeyColor.Red:
+                if (redKeys > 0)
+                {
+                    redKeys--;
+                    return true;
+                }
+                break;
+            case KeyColor.Green:
+                if (greenKeys > 0)
+                {
+                    greenKeys--;
+                    return true;
+                }
+                break;
+        }
+
+        return false;
+    }
 }
