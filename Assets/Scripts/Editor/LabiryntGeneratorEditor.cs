@@ -13,6 +13,10 @@ public class LabiryntGeneratorEditr : Editor
         if(GUILayout.Button("Generate"))
         {
             (target as LabiryntGenerator).Generate();
+        } 
+        if(GUILayout.Button("Clear"))
+        {
+            (target as LabiryntGenerator).Clear();
         }
     }
 }

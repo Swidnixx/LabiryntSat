@@ -20,13 +20,13 @@ public class LabiryntGenerator : MonoBehaviour
             }
         }
     }
-    void Clear()
+    public void Clear()
     {
-        Transform[] children = transform.GetComponentsInChildren<Transform>();
+        int childCount = transform.childCount;
 
-        for(int i=children.Length - 1; i > 0; i--)
+        for(int i=childCount-1; i >= 0; i--)
         {
-            DestroyImmediate(children[i].gameObject);
+            DestroyImmediate(transform.GetChild(i).gameObject);
         }
     }
     public float scale = 10;
