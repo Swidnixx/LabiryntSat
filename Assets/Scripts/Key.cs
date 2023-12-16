@@ -10,6 +10,7 @@ public class Key : Pickup
     {
         base.Pick();
         GameManager.Instance.PickKey(color);
+        SoundManager.Instance.PlayKeyPick();
     }
 }
 

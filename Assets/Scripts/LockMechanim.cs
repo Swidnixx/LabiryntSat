@@ -21,6 +21,7 @@ public class LockMechanim : MonoBehaviour
                 foreach (var d in doorsToOpen)
                 {
                     d.isOpen = true;
+                    SoundManager.Instance.PlayInteraction();
                 } 
             }
         }

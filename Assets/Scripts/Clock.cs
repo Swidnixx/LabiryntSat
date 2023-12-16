@@ -10,5 +10,6 @@ public class Clock : Pickup
     {
         base.Pick();
         GameManager.Instance.PickClock(time);
+        SoundManager.Instance.PlayClock();
     }
 }

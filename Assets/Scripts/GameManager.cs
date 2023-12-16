@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -23,6 +24,10 @@ public class GameManager : MonoBehaviour
     public int time = 60;
     public bool Paused { get; private set; }
 
+    //UI Display
+    public Text diamondsText, timeText, redKeysText, greenKeysText, goldKeysText;
+    public Image freezeImage;
+
     //Pickups
     private int diamonds;
     private int goldKeys, redKeys, greenKeys;
@@ -31,6 +36,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         InvokeRepeating(nameof(Stopper), 3,  1);
+        timeText.text = time.ToString();
     }
     private void Update()
     {
@@ -62,6 +68,8 @@ public class GameManager : MonoBehaviour
     void Stopper()
     {
         time--;
+        timeText.text = time.ToString();
+        freezeImage.gameObject.SetActive(false);
         if(time <= 0)
         {
             //GameOver
@@ -73,6 +81,7 @@ public class GameManager : MonoBehaviour
     public void PickDiamond()
     {
         diamonds++;
+        diamondsText.text = diamonds.ToString();
     }
     public void PickClock(int timeToAdd)
     {
@@ -86,6 +95,7 @@ public class GameManager : MonoBehaviour
     {
         CancelInvoke(nameof(Stopper));
         InvokeRepeating(nameof(Stopper), time, 1);
+        freezeImage.gameObject.SetActive(true);
     }
     public void PickKey(KeyColor color)
     {
@@ -93,12 +103,15 @@ public class GameManager : MonoBehaviour
         {
             case KeyColor.Gold:
                 goldKeys++;
+                goldKeysText.text = goldKeys.ToString();
                 break;
             case KeyColor.Red:
                 redKeys++;
+                redKeysText.text = redKeys.ToString();
                 break;
             case KeyColor.Green:
                 greenKeys++;
+                greenKeysText.text = greenKeys.ToString();
                 break;
         }
     }
@@ -112,6 +125,7 @@ public class GameManager : MonoBehaviour
                 if(goldKeys > 0)
                 {
                     goldKeys--;
+                    goldKeysText.text = goldKeys.ToString();
                     return true;
                 }
                 break;
@@ -119,6 +133,7 @@ public class GameManager : MonoBehaviour
                 if (redKeys > 0)
                 {
                     redKeys--;
+                    redKeysText.text = redKeys.ToString();
                     return true;
                 }
                 break;
@@ -126,6 +141,7 @@ public class GameManager : MonoBehaviour
                 if (greenKeys > 0)
                 {
                     greenKeys--;
+                    greenKeysText.text = greenKeys.ToString();
                     return true;
                 }
                 break;

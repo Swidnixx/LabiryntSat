@@ -8,5 +8,6 @@ public class Diamond : Pickup
     {
         base.Pick();
         GameManager.Instance.PickDiamond();
+        SoundManager.Instance.PlayDiamondPick();
     }
 }

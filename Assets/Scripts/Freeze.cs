@@ -10,5 +10,6 @@ public class Freeze : Pickup
     {
         base.Pick();
         GameManager.Instance.FreezeTime(time);
+        SoundManager.Instance.PlayFreezePick();
     }
 }
