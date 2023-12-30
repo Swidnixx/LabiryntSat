@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -23,10 +24,12 @@ public class GameManager : MonoBehaviour
     //Time
     public int time = 60;
     public bool Paused { get; private set; }
+    bool gameOver;
 
     //UI Display
     public Text diamondsText, timeText, redKeysText, greenKeysText, goldKeysText;
     public Image freezeImage;
+    public GameObject pausePanel, losePanel, winPanel;
 
     //Pickups
     private int diamonds;
@@ -47,10 +50,21 @@ public class GameManager : MonoBehaviour
             {
                 Resume();
             }
-            else
+            else if(!gameOver)
             {
                 Pause();
             }
+        }
+
+        //Restart
+        if(Input.GetKeyDown(KeyCode.F))
+        {
+            Restart();
+        }
+        //Quit
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            Application.Quit();
         }
     }
 
@@ -59,12 +73,15 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1;
         Paused = false;
+        pausePanel.SetActive(false);
     }
     private void Pause()
     {
         Time.timeScale = 0;
         Paused = true;
+        pausePanel.SetActive(true);
     }
+
     void Stopper()
     {
         time--;
@@ -74,6 +91,9 @@ public class GameManager : MonoBehaviour
         {
             //GameOver
             CancelInvoke(nameof(Stopper));
+            losePanel.SetActive(true);
+            Time.timeScale = 0;
+            gameOver = true;
         }
     }
 
@@ -148,5 +168,17 @@ public class GameManager : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void Win()
+    {
+        winPanel.SetActive(true);
+        gameOver = true;
+        Time.timeScale = 0;
+    }
+    private void Restart()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
